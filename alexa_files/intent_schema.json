@@ -1,0 +1,25 @@
+	{
+	  "intents": [
+	    {
+	      "intent": "AboutIntent"
+	    },
+	    {
+	      "intent": "OpmStatusDefaultIntent"
+	    },
+        {
+	      "intent": "OpmStatusDateIntent",
+	      "slots": [
+	        {
+	          "name": "date",
+	          "type": "AMAZON.DATE"
+	        }
+	      ]
+	    },
+	    {
+	      "intent": "AMAZON.StopIntent"
+	    },
+	    {
+	      "intent": "AMAZON.CancelIntent"
+	    }
+	  ]
+	}
