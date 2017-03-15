@@ -4,7 +4,7 @@ An Amazon Alexa skill developed in Typescript that will determine if the governm
 
 ## Motivation
 
-The motiviation for this project was primarily in the interest in learning how to develop a custom Alexa skill using Typescript. 
+The motiviation for this project was primarily in the interest of learning how to develop a custom Alexa skill using Typescript. 
 
 ## Installation
 
