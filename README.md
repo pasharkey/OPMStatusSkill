@@ -1,4 +1,4 @@
-##Synopsis
+## Synopsis
 
 An Amazon Alexa skill developed in Typescript that will determine if the government is open via the OPM.gov API
 
