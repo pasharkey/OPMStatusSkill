@@ -26,13 +26,11 @@ $ yarn install
 Because the project was written in Typescript, you will need to install the typings for some of the dependencies
 
 ```sh
-$ npm install typings --global
+$ yarn install typings --global
 $ typings install dt~alexa-sdk --save
 $ typings install dt~moment --save --global
 $ yarn install @types/node
 ```
-
-### Install necessary typings 
 
 ## Tests
 
