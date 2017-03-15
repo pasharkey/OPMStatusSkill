@@ -40,6 +40,16 @@ Test were created using Mocha.js with the Chai.js assertion library. All tests w
 $ yarn test
 ```
 
+### Packaging for deployment
+
+Included in the code is a script to package all the resources necssary for deploying OPM Status on Amazon Lambda. To create the zip to upload within Lambda, navigate to the **package/** directory and run the script
+
+```sh
+$ ./package.sh
+```
+
+The archive OPMStatusSkill.zip will be created which will contain the **index.js**, **package.json**, and **node_modules/**. This archive can be uploaded as an Alexa Skill Lambda source for Node.JS.
+
 ## Contributors
 
 * Patrick Sharkey (patrick.sharkey@gmail.com)
