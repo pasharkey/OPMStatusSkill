@@ -8,6 +8,32 @@ The motiviation for this project was primarily in the interest in learning how t
 
 ## Installation
 
+### Installation of Node and Yarn
+
+Before you can build the project you will need to [install node](https://docs.npmjs.com/getting-started/installing-node) and [install yarn](https://yarnpkg.com/lang/en/docs/install/)
+
+### Initialize the project
+
+In the root directory, initialize the yarn project and install all of the projects dependencies
+
+```sh
+$ yarn init
+$ yarn install
+```
+
+### Installation of Typings
+
+Because the project was written in Typescript, you will need to install the typings for some of the dependencies
+
+```sh
+$ npm install typings --global
+$ typings install dt~alexa-sdk --save
+$ typings install dt~moment --save --global
+$ yarn install @types/node
+```
+
+### Install necessary typings 
+
 ## Tests
 
 Test were created using Mocha.js with the Chai.js assertion library. All tests will be executed by running the following command
