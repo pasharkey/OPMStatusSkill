@@ -8,7 +8,7 @@ The motiviation for this project was primarily in the interest of learning how t
 
 ## Installation
 
-### Installation of Node and Yarn
+### Installation of Yarn
 
 Before you can build the project you will need to [install yarn](https://yarnpkg.com/lang/en/docs/install/)
 
