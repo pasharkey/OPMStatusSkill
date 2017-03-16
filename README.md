@@ -17,7 +17,6 @@ Before you can build the project you will need to [install node](https://docs.np
 In the root directory, initialize the yarn project and install all of the projects dependencies
 
 ```sh
-$ yarn init
 $ yarn install
 ```
 
@@ -26,10 +25,10 @@ $ yarn install
 Because the project was written in Typescript, you will need to install the typings for some of the dependencies
 
 ```sh
-$ yarn install typings --global
+$ yarn add typings
 $ typings install dt~alexa-sdk --save
 $ typings install dt~moment --save --global
-$ yarn install @types/node
+$ yarn add @types/node
 ```
 
 ## Tests
