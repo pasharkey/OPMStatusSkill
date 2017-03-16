@@ -10,7 +10,7 @@ The motiviation for this project was primarily in the interest of learning how t
 
 ### Installation of Node and Yarn
 
-Before you can build the project you will need to [install node](https://docs.npmjs.com/getting-started/installing-node) and [install yarn](https://yarnpkg.com/lang/en/docs/install/)
+Before you can build the project you will need to [install yarn](https://yarnpkg.com/lang/en/docs/install/)
 
 ### Initialize the project
 
