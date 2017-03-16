@@ -1,5 +1,8 @@
 	{
 	  "intents": [
+			{
+	      "intent": "LaunchIntent"
+	    },
 	    {
 	      "intent": "AboutIntent"
 	    },
@@ -14,6 +17,9 @@
 	          "type": "AMAZON.DATE"
 	        }
 	      ]
+	    },
+			{
+	      "intent": "AMAZON.HelpIntent"
 	    },
 	    {
 	      "intent": "AMAZON.StopIntent"
