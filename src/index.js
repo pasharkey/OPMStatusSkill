@@ -7,14 +7,20 @@ var APP_ID = "my_alexa_id"; //update this for deployment on AWS Lambda
 var handlers = {
     "LaunchRequest": function () {
         var self = this;
-        self.emit("AMAZON.HelpIntent");
+        var currDt = moment().format('MM/DD/YYYY');
+        var speechOutput = "Welcome to o. p. m. status. ";
+        //call OPM API to get status
+        httpsGet(currDt, "ShortStatusMesage", function (reqResult) {
+            speechOutput += reqResult;
+            self.emit(":tellWithCard", speechOutput, "OPM Status for " + currDt, speechOutput);
+        });
     },
     "AMAZON.HelpIntent": function () {
         var self = this;
         var intentRequest = self.event.request;
-        var speechOutput = "To begin, ask o.p.m. status an acceptable question. For example, " +
-            "Alexa, ask o.p.m. status if the government is open today, or, Alexa, " +
-            "ask o.p.m. status was the government open on 2017-03-14?";
+        var speechOutput = "To begin, ask o. p. m. status an acceptable question. For example, " +
+            "Alexa, ask o. p. m. status if the government is open today, or, Alexa, " +
+            "ask o. p. m. status was the government open on 2017-03-14?";
         self.emit(":tellWithCard", speechOutput, "OPM Status", speechOutput);
     },
     'AMAZON.StopIntent': function () {
@@ -29,22 +35,19 @@ var handlers = {
     },
     "Unhandled": function () {
         var self = this;
-        var intentRequest = self.event.request;
-        var speechOutput = "I did not understand that o.p.m. status command. To begin, ask o.p.m. " +
-            "status an acceptable question. For example, Alexa, ask o.p.m. status if ";
-        "the government is open today, or, Alexa, ask o.p.m. status was the government "
+        var speechOutput = "I did not understand that o. p. m. status command. To begin, ask o. p. m. " +
+            "status an acceptable question. For example, Alexa, ask o. p. m. status if ";
+        "the government is open today, or, Alexa, ask o. p. m. status was the government "
             + "open on 2017-03-14?";
         self.emit(":tellWithCard", speechOutput, "OPM Status", speechOutput);
     },
     "AboutIntent": function () {
         var self = this;
-        var intentRequest = self.event.request;
         var speechOutput = "The creator of this Alexa skill is Patrick Sharkey";
         self.emit(":tellWithCard", speechOutput, "OPM Status", speechOutput);
     },
     "OpmStatusDefaultIntent": function () {
         var self = this;
-        var intentRequest = self.event.request;
         var currDt = moment().format('MM/DD/YYYY');
         //call OPM API to get status
         httpsGet(currDt, "ShortStatusMesage", function (reqResult) {

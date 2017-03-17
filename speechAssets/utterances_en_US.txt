@@ -4,8 +4,10 @@ AboutIntent who is the author of this skill
 AboutIntent who is the author of this application
 AboutIntent who is the author of this app
 
-OpmStatusDefaultIntent what is the status of o.p.m.
-OpmStatusDefaultIntent what is o.p.m.'s status
+OpmStatusDefaultIntent what is the status of o. p. m.
+OpmStatusDefaultIntent what is o. p. m.'s status
+OpmStatusDefaultIntent give me the status of o. p. m.
+OpmStatusDefaultIntent give me o. p. m.'s status
 OpmStatusDefaultIntent is the government open
 OpmStatusDefaultIntent is the government closed
 OpmStatusDefaultIntent is the government closed today
@@ -24,3 +26,5 @@ OpmStatusDateIntent was the government open on {date}
 OpmStatusDateIntent was the government closed on {date}
 OpmStatusDateIntent if the government was open on {date}
 OpmStatusDateIntent if the government was closed on {date}
+OpmStatusDateIntent give me o. p. m.'s status on {date}
+OpmStatusDateIntent give me the status of o. p. m. on {date}

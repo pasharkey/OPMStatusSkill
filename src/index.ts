@@ -7,14 +7,21 @@ const APP_ID = "my_alexa_id"; //update this for deployment on AWS Lambda
 let handlers: Alexa.Handlers = {
     "LaunchRequest": function () {
         let self: Alexa.Handler = this;
-        self.emit("AMAZON.HelpIntent");
+        let currDt = moment().format('MM/DD/YYYY');
+        let speechOutput = "Welcome to o. p. m. status. "
+    
+        //call OPM API to get status
+        httpsGet(currDt, "ShortStatusMesage", reqResult => {
+            speechOutput += reqResult;
+            self.emit(":tellWithCard", speechOutput, "OPM Status for " + currDt, speechOutput); 
+        });
     },
     "AMAZON.HelpIntent": function() {
         let self: Alexa.Handler = this;
         let intentRequest = <Alexa.IntentRequest> self.event.request;
-        let speechOutput = "To begin, ask o.p.m. status an acceptable question. For example, " +
-                            "Alexa, ask o.p.m. status if the government is open today, or, Alexa, "+
-                            "ask o.p.m. status was the government open on 2017-03-14?"
+        let speechOutput = "To begin, ask o. p. m. status an acceptable question. For example, " +
+                            "Alexa, ask o. p. m. status if the government is open today, or, Alexa, "+
+                            "ask o. p. m. status was the government open on 2017-03-14?"
         self.emit(":tellWithCard", speechOutput, "OPM Status", speechOutput);
     },
     'AMAZON.StopIntent': function () {
@@ -29,22 +36,19 @@ let handlers: Alexa.Handlers = {
     },
     "Unhandled": function () {
         let self: Alexa.Handler = this;
-        let intentRequest = <Alexa.IntentRequest> self.event.request;
-        let speechOutput = "I did not understand that o.p.m. status command. To begin, ask o.p.m. " + 
-                           "status an acceptable question. For example, Alexa, ask o.p.m. status if "
-                           "the government is open today, or, Alexa, ask o.p.m. status was the government "
+        let speechOutput = "I did not understand that o. p. m. status command. To begin, ask o. p. m. " + 
+                           "status an acceptable question. For example, Alexa, ask o. p. m. status if "
+                           "the government is open today, or, Alexa, ask o. p. m. status was the government "
                            + "open on 2017-03-14?";
         self.emit(":tellWithCard", speechOutput, "OPM Status", speechOutput);
     },
     "AboutIntent": function() {
         let self: Alexa.Handler = this;
-        let intentRequest = <Alexa.IntentRequest> self.event.request;
         let speechOutput = "The creator of this Alexa skill is Patrick Sharkey";
         self.emit(":tellWithCard", speechOutput, "OPM Status", speechOutput);
     },
     "OpmStatusDefaultIntent": function() {
         let self: Alexa.Handler = this;
-        let intentRequest = <Alexa.IntentRequest> self.event.request;
         let currDt = moment().format('MM/DD/YYYY');
     
         //call OPM API to get status
