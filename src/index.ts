@@ -7,22 +7,17 @@ const APP_ID = "my_alexa_id"; //update this for deployment on AWS Lambda
 let handlers: Alexa.Handlers = {
     "LaunchRequest": function () {
         let self: Alexa.Handler = this;
-        let currDt = moment().format('MM/DD/YYYY');
-        let speechOutput = "Welcome to o. p. m. status. "
-    
-        //call OPM API to get status
-        httpsGet(currDt, "ShortStatusMesage", reqResult => {
-            speechOutput += reqResult;
-            self.emit(":tellWithCard", speechOutput, "OPM Status for " + currDt, speechOutput); 
-        });
+        let speechOutput = "Welcome to o. p. m. status. Please say a valid o. p. m. status command."
+        let rePrompt = "Please say a valid o. p. m. status command or help if you need assistance."
+        self.emit(":askWithCard", speechOutput, rePrompt, "OPM Status", speechOutput);
     },
     "AMAZON.HelpIntent": function() {
         let self: Alexa.Handler = this;
         let intentRequest = <Alexa.IntentRequest> self.event.request;
         let speechOutput = "To begin, ask o. p. m. status an acceptable question. For example, " +
-                            "Alexa, ask o. p. m. status if the government is open today, or, Alexa, "+
-                            "ask o. p. m. status was the government open on 2017-03-14?"
-        self.emit(":tellWithCard", speechOutput, "OPM Status", speechOutput);
+                        "Alexa, ask o. p. m. status if the government is open today, or, Alexa, "+
+                        "ask o. p. m. status was the government open on 2017-03-14?"
+        self.emit(":askWithCard", speechOutput, speechOutput, "OPM Status", speechOutput);
     },
     'AMAZON.StopIntent': function () {
         this.emit('SessionEndedRequest');
@@ -36,11 +31,9 @@ let handlers: Alexa.Handlers = {
     },
     "Unhandled": function () {
         let self: Alexa.Handler = this;
-        let speechOutput = "I did not understand that o. p. m. status command. To begin, ask o. p. m. " + 
-                           "status an acceptable question. For example, Alexa, ask o. p. m. status if "
-                           "the government is open today, or, Alexa, ask o. p. m. status was the government "
-                           + "open on 2017-03-14?";
-        self.emit(":tellWithCard", speechOutput, "OPM Status", speechOutput);
+        let speechOutput = "Welcome to o. p. m. status. Please say a valid o. p. m. status command."
+        let rePrompt = "Please say a valid o. p. m. status command or help if you need assistance."
+        self.emit(":askWithCard", speechOutput, rePrompt, "OPM Status", speechOutput);
     },
     "AboutIntent": function() {
         let self: Alexa.Handler = this;
