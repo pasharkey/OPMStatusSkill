@@ -29,6 +29,9 @@ let handlers: Alexa.Handlers = {
         let speechOutput = "Goodbye!"
         this.emit(":tellWithCard", speechOutput, "OPM Status", speechOutput);
     },
+    'LaunchIntent':function () {
+        this.emit('LaunchRequest');
+    },
     "Unhandled": function () {
         let self: Alexa.Handler = this;
         let speechOutput = "Welcome to o. p. m. status. Please say a valid o. p. m. status command."
@@ -80,6 +83,7 @@ export class Handler {
     constructor(event: Alexa.RequestBody, context: Alexa.Context, callback: Function) {
         let alexa = Alexa.handler(event, context);
         alexa.APP_ID = APP_ID;
+        alexa.appId = APP_ID;
         alexa.registerHandlers(handlers);
         alexa.execute();
     }

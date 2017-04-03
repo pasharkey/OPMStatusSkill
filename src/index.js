@@ -29,6 +29,9 @@ var handlers = {
         var speechOutput = "Goodbye!";
         this.emit(":tellWithCard", speechOutput, "OPM Status", speechOutput);
     },
+    'LaunchIntent': function () {
+        this.emit('LaunchRequest');
+    },
     "Unhandled": function () {
         var self = this;
         var speechOutput = "Welcome to o. p. m. status. Please say a valid o. p. m. status command.";
@@ -76,6 +79,7 @@ var Handler = (function () {
     function Handler(event, context, callback) {
         var alexa = Alexa.handler(event, context);
         alexa.APP_ID = APP_ID;
+        alexa.appId = APP_ID;
         alexa.registerHandlers(handlers);
         alexa.execute();
     }

@@ -1,3 +1,5 @@
+LaunchIntent launch
+
 AboutIntent who wrote this app
 AboutIntent who wrote this application
 AboutIntent who is the author of this skill

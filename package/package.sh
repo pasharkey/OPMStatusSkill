@@ -9,5 +9,5 @@ zip -r -D OPMStatusSkill.zip *
 mv OPMStatusSkill.zip ../
 cd ..
 
-rm -rf ./packaging
+rm -rf packaging
  
