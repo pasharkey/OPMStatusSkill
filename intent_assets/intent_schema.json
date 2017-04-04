@@ -1,8 +1,5 @@
 	{
 	  "intents": [
-			{
-	      "intent": "LaunchIntent"
-	    },
 	    {
 	      "intent": "AboutIntent"
 	    },
