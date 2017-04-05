@@ -4,7 +4,7 @@ import requests
 import datetime
 
 API_BASE="https://www.opm.gov/json/operatingstatus.json"
-APP_ID="my_alex_id"
+APP_ID="my_alexa_id"
  
 def lambda_handler(event, context):
     """ Route the incoming request based on type (LaunchRequest, IntentRequest,
@@ -43,7 +43,7 @@ def on_launch(launch_request, session):
     """ Called when the user launches the skill without specifying what they
     want
     """
- 
+
     print("on_launch requestId=" + launch_request['requestId'] +
           ", sessionId=" + session['sessionId'])
     # Dispatch to your skill's launch
@@ -75,14 +75,19 @@ def on_intent(intent_request, session):
  
  
 def on_session_ended(session_ended_request, session):
-    """ Called when the user ends the session.
- 
-    Is not called when the skill returns should_end_session=true
-    """
     print("on_session_ended requestId=" + session_ended_request['requestId'] +
           ", sessionId=" + session['sessionId'])
     # add cleanup logic here
  
+def handle_session_end_request():
+    card_title = "OPM Status - Goodbye!"
+    speech_output = "Thank you for using o. p. m. status!"
+    reprompt_text = "Thank you for using o. p. m status! Feedback is always welcome. You can find me on Twitter at @shatparkey."
+    # Setting this to true ends the session and exits the skill.
+    should_end_session = True
+    return build_response({}, build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session))
+
 # --------------- Functions that control the skill's behavior ------------------
  
 def get_welcome_response():
@@ -144,7 +149,7 @@ def get_current_opm_status_response(intent, session):
     """ Gets the current status of opm for the day
     """
  
-    card_title = intent['name']
+    card_title = "OPM Status Result"
     session_attributes = {}
     speech_output = "I'm not sure which o. p. m. status you requested. " \
                     "Please try again."
@@ -170,7 +175,7 @@ def get_current_opm_status_response(intent, session):
 def get_date_opm_status_response(intent, session):
     """ Gets the current status of opm for the day
     """
-    card_title = intent['name']
+    card_title = "OPM Status Result"
     session_attributes = {}
     speech_output = "I'm not sure which o. p. m. status you requested. " \
                     "Please try again."
@@ -180,24 +185,35 @@ def get_date_opm_status_response(intent, session):
 
     if "date" in intent["slots"]:
         dt_value = intent["slots"]["date"]["value"]
-        fmt_dt_value = datetime.datetime.strptime(dt_value, "%Y-%m-%d").strftime("%m/%d/%Y")
+
+        try:
+            fmt_dt_value = datetime.datetime.strptime(dt_value, "%Y-%m-%d").strftime("%m/%d/%Y")
  
-        # call the operating status endpoint and convert the response to json
-        r = requests.get(API_BASE + "?date=" + fmt_dt_value)
+            # call the operating status endpoint and convert the response to json
+            r = requests.get(API_BASE + "?date=" + fmt_dt_value)
 
-        if r.status_code == 200:
-            data = r.json()
-            status = data['StatusType'].lower()
+            if r.status_code == 200:
+                data = r.json()
+                status = data['StatusType'].lower()
 
-            if status != 'undefined':
-                speech_output = "Federal agencies in the Washington, DC, area were " \
-                                 + status + " on " + dt_value         
-                reprompt_text = ""
-        else:
-            speech_output = "Please ask me for the o. p. m. status by saying, " \
-                            "Is the government open today?"
-            reprompt_text = "Please ask me for bus times by saying, " \
-                            "Is the government open today?"
+                if status != 'undefined':
+                    speech_output = "Federal agencies in the Washington, DC, area were " \
+                                    + status + " on " + dt_value + "."     
+                    reprompt_text = ""
+            else:
+                speech_output = "I seem to be having trouble answering your question. " \
+                                "Please ask me for the o. p. m. status by saying, " \
+                                "Is the government open today?"
+                reprompt_text = "Please ask me for bus times by saying, " \
+                                "Is the government open today?"
+                should_end_session = False
+
+        except ValueError:
+            speech_output = "Sorry, I did not understand that date. Please ask your question " \
+                            "again with a valid date."
+            reprompt_text = "Sorry, I did not understand that date. Please ask your question  " \
+                            "again with a valid date."
+            should_end_session = False
 
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
@@ -212,8 +228,8 @@ def build_speechlet_response(title, output, reprompt_text, should_end_session):
         },
         'card': {
             'type': 'Simple',
-            'title': 'SessionSpeechlet - ' + title,
-            'content': 'SessionSpeechlet - ' + output
+            'title':  title,
+            'content': output
         },
         'reprompt': {
             'outputSpeech': {
