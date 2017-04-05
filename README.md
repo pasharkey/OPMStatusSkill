@@ -57,8 +57,6 @@ Included in both the typscript and python code base is a script to package all t
 $ ./package.sh
 ```
 
-The archive OPMStatusSkill.zip will be created which will contain the **index.js**, **package.json**, and **node_modules/**. This archive can be uploaded as an Alexa Skill Lambda source for Node.JS.
-
 ## Contributors
 
 * Patrick Sharkey (patrick.sharkey@gmail.com)
